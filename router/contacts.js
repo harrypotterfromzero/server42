@@ -19,13 +19,15 @@ app.get("/", async (req, res) => {
   const response = await fetch(url, options)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       const html = data.content
         .map((user) => {
-          return` ${user.Contact.ContactName}`
-        })
-        .join();
-        res.render("contacts", { data: html});
+          // return ` ${user.Contact.ContactName}`;
+          return user
+        });
+        // .join("");
+        console.log(JSON.stringify(html));
+      res.render("contacts", { data: html });
     })
     .catch((e) => {
       console.error({
@@ -33,6 +35,12 @@ app.get("/", async (req, res) => {
         error: e,
       });
     });
+  //     const html = data.content.map((user) => {
+  //   return `${user.Contact}`
+  // })
+
+  // res.send(response.json())
+  // console.log(array);
 });
 
 export default app;

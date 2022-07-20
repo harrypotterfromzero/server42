@@ -2,10 +2,66 @@
 <html>
   <head>
     <title>Nhan Su</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="/css/danhsach.css" />
+    <style>
+      .title-header {
+        margin-bottom: 5rem;
+      }
+    </style>
   </head>
   <body>
-    <h1>Nhan Su</h1>
-    <span><%= JSON.stringify(data) %></span>
+    <div class="title-header">
+      <span style="color: #97a0af; font-size: 1.7rem"
+        >Quản lý người dùng&nbsp;&nbsp;-&nbsp;&nbsp;</span
+      >
+      <span style="color: #091e42; font-size: 1.7rem"
+        >Danh sách người dùng</span
+      >
+    </div>
+    <table id="example" class="display" style="width: 100%">
+      <thead class="title-column">
+        <tr>
+          <th style="width: 10%">Tên người dùng</th>
+          <th style="width: 15%">Tên đầy đủ</th>
+          <th style="width: 10%">Đơn vị/Trung tâm</th>
+          <th style="width: 15%">Phòng ban</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach((item)=>{%>
+        <tr>
+          <td><%=item.Contact.ContactName%></td>
+          <td><%=item.Contact.FullName%></td>
+          <td><%=item.Contact.Center%></td>
+          <td><%=item.Contact.Department%></td>
+        </tr>
+        <%});%>
+      </tbody>
+    </table>
+    <script src="/js/jquery-3.5.1.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+       <script>
+          $(document).ready(function () {
+            $('#example').dataTable({
+              "orderClasses": false,
+              initComplete: function () {
+                this.api().columns().every(function () {
+                  var column = this;
+                });
+              }
+            });
+      $('#example_filter input').attr("placeholder","Tìm kiếm");
+            var table = $('#example').DataTable();
+             $('#scoring1, #earning1').change( function() {
+              table.draw();
+          } );
+          });
+        </script>
+    <script>
+      $(document).ready(function () {
+        $("#example").DataTable();
+      });
+    </script>
   </body>
 </html>
